@@ -1,0 +1,113 @@
+/* Reset style */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline; }
+
+*:focus {
+  outline: 0; }
+
+body {
+  line-height: 1;
+  color: black;
+  background: white; }
+
+ol, ul {
+  list-style: none; }
+
+
+/* general styling */
+
+body 
+{
+  font-size: 62.5%;
+  line-height: 1.8;
+  font-family: helvetica, arial, verdana, sans-serif;
+  background-color: #EEE;
+  color: #000; 
+}
+
+#contents
+{
+  background-color: #FFF;
+  border: 1em solid #DDD;
+  width: 50em;
+  margin: 2em auto;
+  padding: 2em;
+}
+
+h1
+{
+  font-size: 3em;
+  font-weight: bold;
+}
+
+h2
+{
+  font-size: 2em;
+  font-weight: bold;
+  border-bottom: 1px solid #CCC;  
+}
+
+h3
+{
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.example
+{
+  padding: 2em 0;
+}
+
+p
+{
+  font-size: 1.2em;
+  margin-bottom: 1em;
+}
+
+
+/* Style autocomplete popups */
+
+.autocomplete
+{
+  background-color: #FFF;
+  border: 1px solid #CCC;
+}
+
+.autocomplete ul
+{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.autocomplete li
+{
+  padding: 0.5em;
+  border-bottom: 1px solid #CCC;
+}
+
+li.selected
+{
+  background-color: #DDD;
+}
+
+#local_adder_selections li
+{
+  padding: 0.5em;
+  font-size: 1.2em;
+}
+
+#local_adder_selections li.new
+{
+  background-color: #CFC;
+}
+

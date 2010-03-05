@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <title>MultiComplete Examples</title>
+  <link href="styles.css?1265236381" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <div id="contents">
+    <h1>MultiComplete</h1>
+
+    <p>
+      Extensible auto-complete tool built on <del>Prototype and Scriptaculous</del> jQuery and LowPro.
+    </p>
+
+    <p>
+      Handles the basics so you can build on top of it easily instead of being stuck with whatever the author thought of.
+    </p>
+
+    <p>
+      Below are some examples of what you can do by extending the base functionality, they are all pretty simple but 
+      should show how you can build on the basics.
+    </p>
+
+    <p>
+      Going beyond these examples you could easily hook it up to search via Ajax; use different regular expressions 
+      to match with; modify the templates to display more information in the lists; use complex data types instead 
+      of simple arrays etc...
+    </p>
+
+    <h2>Single Selection</h2>
+
+    <div class="example">
+      <h3>Text Field with inline array of data</h3>
+      
+      <p>
+        This is setup with an inline array of data (one, two, three...ten) and is as basic as it gets
+      </p>
+      
+      <div id="single_inline">
+        <input type="text" />
+      </div>
+    </div>
+
+    <div class="example">
+      <h3>Select Box</h3>
+
+      <p>
+        This gets its data from the select box and when an item is selected it updates the select box.
+      <p>
+
+      <div id="single_select_box">
+        <select>
+          <option value="1">Mary</option>
+          <option value="2">Eric</option>
+          <option value="3">Tom</option>
+          <option value="4">John</option>
+          <option value="5">Danny</option>
+        </select>
+      </div>
+    </div>
+
+    <h2>Multiple Options</h2>
+
+    <div class="example">
+      <h3>Tied to a multi-select box</h3>
+      
+      <p>
+        This is hooked up to the select box so the suggestions will only contain those not already selected.        
+      </p>
+      
+      <div id="multi_select_box">
+        <input type="text" />
+
+        <select multiple="true">
+          <option value="1">Mary</option>
+          <option value="2">Eric</option>
+          <option value="3">Tom</option>
+          <option value="4">John</option>
+          <option value="5">Danny</option>
+        </select>
+      </div>
+    </div>
+
+    <h2>Advanced</h2>
+
+    <div class="example">
+      
+      <h3>Adding new items</h3>
+      
+      <p>
+        This allows selecting multiple items, but only once per item.
+        If what you're searching for doesn't exist, then it lets you add it.        
+      </p>
+      <p>
+        It builds up a list of items you've selected as you go along, removing an item from this list
+        adds it back to the list of possible suggestions.
+      </p>
+      
+      <div id="local_adder">
+        <input type="text" /><span id="new_indicator"></span>
+        <ul id="local_adder_selections"></ul>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="../lib/jquery-1.4.2.js"  type="text/javascript"></script>
+<script src="../lib/lowpro.jquery.js" type="text/javascript"></script>
+<script src="../src/jquery.multicomplete.js" type="text/javascript"></script>
+<script src="examples.js" type="text/javascript"></script>
+
+</html>
