@@ -72,34 +72,6 @@ p
   margin-bottom: 1em;
 }
 
-
-/* Style autocomplete popups */
-
-.autocomplete
-{
-  background-color: #FFF;
-  border: 1px solid #CCC;
-}
-
-.autocomplete ul
-{
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  font-size: 1.2em;
-}
-
-.autocomplete li
-{
-  padding: 0.5em;
-  border-bottom: 1px solid #CCC;
-}
-
-li.selected
-{
-  background-color: #DDD;
-}
-
 #local_adder_selections li
 {
   padding: 0.5em;
@@ -110,4 +82,30 @@ li.selected
 {
   background-color: #CFC;
 }
+
+
+/* Style autocomplete popups */
+
+.autocomplete{
+  background-color: #FFF;
+  border: 1px solid #CCC;
+}
+
+.autocomplete ul{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.autocomplete li{
+  padding: 0.5em;
+  border-bottom: 1px solid #CCC;
+}
+
+.autocomplete li.selected{
+  background-color: #DDD;
+}
+
+
 

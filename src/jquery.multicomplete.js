@@ -1,17 +1,17 @@
-// TODO: this shouldn't be here
-var KEY = {
-	UP: 38,
-	DOWN: 40,
-	DEL: 46,
-	TAB: 9,
-	RETURN: 13,
-	ESC: 27,
-	COMMA: 188,
-	PAGEUP: 33,
-	PAGEDOWN: 34,
-	BACKSPACE: 8
+MultiComplete = {
+  KEY: {
+  	UP: 38,
+  	DOWN: 40,
+  	DEL: 46,
+  	TAB: 9,
+  	RETURN: 13,
+  	ESC: 27,
+  	COMMA: 188,
+  	PAGEUP: 33,
+  	PAGEDOWN: 34,
+  	BACKSPACE: 8
+  }
 };
-MultiComplete = {};
 MultiComplete.Base = $.klass({
   
   // just takes a hash of configuration
@@ -50,8 +50,22 @@ MultiComplete.Base = $.klass({
   // builds the suggestions container etc...
   // override to do other things too
   build: function() {
-    this.suggestions_container = $("<div />").addClass('autocomplete').hide().css("position", "absolute").appendTo(document.body);
-    //this.input.insert({after: this.suggestions_container});
+    var context = this;
+    this.suggestions_container = $("<div class='autocomplete'/>")
+      .hide()
+      .css("position", "absolute")
+      .appendTo($('body'));    
+   
+    // The jQuery live() or delegate() methods don't seem to work here
+    // do 'old-style' delegation instead
+    this.suggestions_container.click(function(event) {
+      var target = $(event.target);
+      context.clicked_selection(target);
+    })
+    this.suggestions_container.bind('mouseover',function(event) {
+      var target = $(event.target);
+      context.over_selections(target);
+    })
   },
   
   show: function() {
@@ -80,7 +94,7 @@ MultiComplete.Base = $.klass({
         top: pos.y + this.input[0].offsetHeight + "px",
         left: pos.x + "px"
       })
-      .show();  
+      .show();      
     // this.fix_ie();
   },
   
@@ -100,17 +114,17 @@ MultiComplete.Base = $.klass({
   
   onkeydown: function(e) {
     switch (e.keyCode) {   
-      case KEY.UP:
+      case MultiComplete.KEY.UP:
         this.up();
         e.preventDefault();
         break;
     
-      case KEY.DOWN:
+      case MultiComplete.KEY.DOWN:
         this.down();
         e.preventDefault();
         break;
     
-      case KEY.RETURN:
+      case MultiComplete.KEY.RETURN:
         e.preventDefault();
         this.select_current();
         break;
@@ -122,16 +136,16 @@ MultiComplete.Base = $.klass({
   
   onkeyup: function(e){
     switch (e.keyCode) {      
-      case KEY.RETURN:   
+      case MultiComplete.KEY.RETURN:   
         this.enter_pressed(e);
         break;      
 
       // ignore these and pass on through
-      case KEY.UP:
-      case KEY.DOWN: 
+      case MultiComplete.KEY.UP:
+      case MultiComplete.KEY.DOWN: 
         break;
       
-      case KEY.ESC:
+      case MultiComplete.KEY.ESC:
         this.hide();
         break;
       
@@ -150,6 +164,30 @@ MultiComplete.Base = $.klass({
     }
   },
   
+  over_selections: function(element){
+     if (element.nodeName != 'LI'){
+       element = element.closest('li');
+     }
+     
+     if (!element){
+       return;
+     }
+     this.current_index = $(element).siblings().andSelf().index(element);
+     this.highlight_selection();
+   },
+   
+   clicked_selection: function(element){
+     if (element.nodeName != 'LI'){
+       element = element.closest('li');
+     }
+     
+     if (!element){
+       return;
+     }
+     this.current_index = $(element).siblings().andSelf().index(element);
+     this.select_current();
+  },
+  
   // by default just populate the text field with the value
   // override to do something more interesting
   select_current: function(){
@@ -157,7 +195,7 @@ MultiComplete.Base = $.klass({
     if (!value){
       return;
     }
-    this.input.value = value;
+    this.input.val(value);
     this.reset();
   },
   
@@ -202,11 +240,10 @@ MultiComplete.Base = $.klass({
     var html = $("<ul/>");
     var context = this;
     $.each(this.current_matches, function(n,item) {
-      $("<li/>").html(context.html_for_item(item, search_text)).appendTo(html);
+      $("<li/>")
+        .html(context.html_for_item(item, search_text))
+        .appendTo(html);
     });
-    // this.current_matches.each(function(item){
-    //   html += this.html_for_item(item, search_text);
-    // }.bind(this));
     return html;
   },
   
@@ -214,14 +251,6 @@ MultiComplete.Base = $.klass({
   // assumes the item is a single string of text, but can just as easily
   // override and work with an object etc...
   html_for_item: function(item, search_text) {
-    // if (!this._html_for_item_template) {
-    //   this._html_for_item_template = new Template([
-    //     '<li>',
-    //       '#{item}',
-    //     '</li>'
-    //   ].join(''));      
-    // }
-    //return this._html_for_item_template.evaluate({item: item});
     return item;
   },
   

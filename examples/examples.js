@@ -9,8 +9,6 @@ $(function () {
   // text field with inline data
   $('#single_inline input').attach(MultiComplete.Base, {data: data});
   
-  
-  
   ////////////////////////
   //////  Example 2
   ////////////////////////
@@ -52,8 +50,6 @@ $(function () {
   // use data from a select box
   $('#single_select_box select').attach(MultiComplete.SimpleSelect);
   
-  
-  
   ////////////////////////
   //////  Example 3
   ////////////////////////
@@ -61,13 +57,13 @@ $(function () {
   // tied to a select box, so it gets its data from that
   // only shows items which haven't already been selected
   MultiComplete.MultipleSelect = $.klass(MultiComplete.Base, {
-
+  
     initialize: function($super, select){
       this.selectBox = select;
       this.input = this.element;
       $super({input: this.input});
     },
-
+  
     find_items_matching: function(text){
       text = this.escape_regex(text.toLowerCase());
       // get all the options from the select box to use as data
@@ -78,19 +74,19 @@ $(function () {
       
       this.found_items(found_items, text);
     },
-
+  
     finder: function(text){
       return function(item, i) {
         if(item.selected){ return false };
         return item.text.toLowerCase().match(text)
       };
     },
-
+  
     // the item here is a HTMLOptionElement so adjust the template accordingly
     html_for_item: function(item, search_text){
       return item.text;
     },
-
+  
     // select the item in the select box
     select_current: function(){
       var item = this.current_value();
@@ -98,11 +94,11 @@ $(function () {
       item.selected = true;
       this.reset();
     }
-
+  
   });
-
+  
   $('#multi_select_box input').attach(MultiComplete.MultipleSelect,$('#multi_select_box select'));
-
+  
   
   ////////////////////////
   //////  Example 4
@@ -114,7 +110,7 @@ $(function () {
   // it also allows adding items which aren't in the data and then adds them to the data
   // so they are there on the next search.
   MultiComplete.Adder = $.klass(MultiComplete.Base, {
-
+  
     initialize: function($super, config){
       this.selected_items = [];
       context = this;
@@ -129,7 +125,7 @@ $(function () {
       });
       $super(config);
     },
-
+  
     // restrict to ones not already selected    
     finder: function(text){
       context = this;
@@ -138,49 +134,49 @@ $(function () {
         return item.toLowerCase().match(text);
       };
     },
-
+  
     select_current: function(){
       var item = this.current_value();
-
+  
       if (!item){
         // it's a new item, add it to the list
         // this could be an ajax request to persist it etc...
         // the you could add to the list when the request returns
         var value = this.input.val();
-
+  
         if ($.trim(value) === ""){
           return;
         }
-
+  
         this.data.push(value);
         this.add_to_list(value, true);
       }else{
         this.add_to_list(item, false);
       }
-
+  
       this.input.val('');
       this.reset();
     },
-
+  
     html_for_list_item: function(item, is_new){
       var data = {name: item};
       data["new"] = is_new ? "new" : "existing";
       return '<li><span>'+data.name+'</span> ('+data.new+') <a href="#">remove</a></li>';
     },
-
+  
     add_to_list: function(item, is_new){
       var html = $(this.html_for_list_item(item, is_new));
       this.selected_items.push(item);
       this.selected_list.append(html);
     },
-
+  
     // this displays an indicator when your're searching
     // to say whether you're going to add a new item or not
     reset: function($super){
       $super();
       $('#new_indicator').text("");
     },
-
+  
     search: function($super){
       var value = this.input.val();
       if ($.trim(value) === ""){
@@ -188,7 +184,7 @@ $(function () {
       }
       $super();
     },
-
+  
     found_items: function($super, items){
       if (items.length === 0){
         $('#new_indicator').text("no matches, add new item?");
@@ -197,10 +193,10 @@ $(function () {
       }
       $super(items);
     }
-
+  
   });
   
   $('#local_adder input').attach(MultiComplete.Adder,{data: data, selected_list: $('#local_adder_selections')});
-  
+    
   
 });
